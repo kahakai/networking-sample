@@ -1,7 +1,11 @@
 package com.artnest.networkingsample
 
+import android.util.Log
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.Response
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -54,5 +58,23 @@ object NetworkManager {
         } catch (e: IOException) {
             e.printStackTrace()
         }*/
+    }
+
+    fun openUrlWithOkHttpAsync(url: String) {
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .get()
+            .url(url)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // handle failure
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                Log.d("OkHttp Async", response.body!!.string())
+            }
+        })
     }
 }
