@@ -1,6 +1,8 @@
 package com.artnest.networkingsample
 
-import android.util.Log
+import com.artnest.networkingsample.data.response.CatResponse
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -73,7 +75,11 @@ object NetworkManager {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.d("OkHttp Async", response.body!!.string())
+                val content = response.body!!.string()
+                val moshi: Moshi = Moshi.Builder().build()
+                val catAdapter: JsonAdapter<CatResponse> = moshi
+                    .adapter(CatResponse::class.java)
+                val cat: CatResponse = catAdapter.fromJson(content)!!
             }
         })
     }
