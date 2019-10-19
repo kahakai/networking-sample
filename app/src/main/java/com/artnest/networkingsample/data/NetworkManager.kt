@@ -1,4 +1,4 @@
-package com.artnest.networkingsample
+package com.artnest.networkingsample.data
 
 import com.artnest.networkingsample.data.response.CatResponse
 import com.squareup.moshi.JsonAdapter
