@@ -3,6 +3,7 @@ package com.artnest.networkingsample
 import com.artnest.networkingsample.data.response.CatResponse
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -77,9 +78,10 @@ object NetworkManager {
             override fun onResponse(call: Call, response: Response) {
                 val content = response.body!!.string()
                 val moshi: Moshi = Moshi.Builder().build()
-                val catAdapter: JsonAdapter<CatResponse> = moshi
-                    .adapter(CatResponse::class.java)
-                val cat: CatResponse = catAdapter.fromJson(content)!!
+                val type = Types
+                    .newParameterizedType(List::class.java, CatResponse::class.java)
+                val catsAdapter: JsonAdapter<List<CatResponse>> = moshi.adapter(type)
+                val cats: List<CatResponse> = catsAdapter.fromJson(content)!!
             }
         })
     }
