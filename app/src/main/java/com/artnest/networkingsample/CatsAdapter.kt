@@ -24,8 +24,19 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatViewHolder>() {
 
     override fun getItemCount() = cats.size
 
-    fun submitList(newCats: List<CatResponse>) {
+    fun addCats(newCats: List<CatResponse>) {
         cats += newCats
+        notifyDataSetChanged() // used here for simplicity, you must never use it
+    }
+
+    fun submitList(newCats: List<CatResponse>) {
+        cats.clear()
+        cats += newCats
+        notifyDataSetChanged() // used here for simplicity, you must never use it
+    }
+
+    fun clearCats() {
+        cats.clear()
         notifyDataSetChanged() // used here for simplicity, you must never use it
     }
 

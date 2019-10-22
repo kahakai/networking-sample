@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Networking Sample</string>
+
+    <string name="loading_error">Ошибка загрузки изображений</string>
 </resources>
