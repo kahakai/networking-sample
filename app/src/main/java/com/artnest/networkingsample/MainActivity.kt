@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val theCatApiService = NetworkModule().theCatApiService
+    private val theCatApiService = NetworkModule.theCatApiService
 
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var catsRv: RecyclerView
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     call: Call<List<CatResponse>>,
                     response: Response<List<CatResponse>>
                 ) {
-                    val cats: List<CatResponse> = response.body()!!
+                    val cats: List<CatResponse> = response.body() ?: emptyList()
                     progressBar.isVisible = false
                     catsAdapter.addCats(cats)
                 }
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                         call: Call<List<CatResponse>>,
                         response: Response<List<CatResponse>>
                     ) {
-                        val cats: List<CatResponse> = response.body()!!
+                        val cats: List<CatResponse> = response.body() ?: emptyList()
                         swipeRefresh.isRefreshing = false
                         catsAdapter.addCats(cats)
                     }

@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.transform.CircleCropTransformation
 import com.artnest.networkingsample.data.response.CatResponse
 
 class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatViewHolder>() {
@@ -19,7 +21,7 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
-        holder.bind(cats[position])
+        holder.bind(cat = cats[position], position = position)
     }
 
     override fun getItemCount() = cats.size
@@ -42,10 +44,16 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatViewHolder>() {
 
     class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val label: TextView = itemView.findViewById(R.id.label_name)
         private val image: ImageView = itemView.findViewById(R.id.image_cat)
 
-        fun bind(cat: CatResponse) {
-            image.load(cat.url)
+        fun bind(cat: CatResponse, position: Int) {
+            label.text = "Cat $position"
+            image.load(cat.url) {
+                crossfade(true)
+                placeholder(R.mipmap.ic_launcher)
+                transformations(CircleCropTransformation())
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ object NetworkManager {
 
         return try {
             client.newCall(request).execute().use { response ->
-                response.body!!.string()
+                response.body?.string() ?: "invalid string"
             }
         } catch (e: IOException) {
             e.printStackTrace()
@@ -76,12 +76,12 @@ object NetworkManager {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val content = response.body!!.string()
+                val content = response.body?.string() ?: "invalid string"
                 val moshi: Moshi = Moshi.Builder().build()
                 val type = Types
                     .newParameterizedType(List::class.java, CatResponse::class.java)
                 val catsAdapter: JsonAdapter<List<CatResponse>> = moshi.adapter(type)
-                val cats: List<CatResponse> = catsAdapter.fromJson(content)!!
+                val cats: List<CatResponse>? = catsAdapter.fromJson(content)
             }
         })
     }
