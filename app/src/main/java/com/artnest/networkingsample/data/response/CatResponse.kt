@@ -1,19 +1,19 @@
 package com.artnest.networkingsample.data.response
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 class CatResponse(
-    @Json(name = "id")
+    @SerialName("id")
     val id: String,
 
-    @Json(name = "url")
-    val url: String,
+    @SerialName("url")
+    val imageUrl: String,
 
-    @Json(name = "width")
+    @SerialName("width")
     val width: Int,
 
-    @Json(name = "height")
+    @SerialName("height")
     val height: Int
 )

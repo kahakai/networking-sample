@@ -1,5 +1,6 @@
 package com.artnest.networkingsample
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +48,10 @@ class CatsAdapter : RecyclerView.Adapter<CatsAdapter.CatViewHolder>() {
         private val label: TextView = itemView.findViewById(R.id.label_name)
         private val image: ImageView = itemView.findViewById(R.id.image_cat)
 
+        @SuppressLint("SetTextI18n")
         fun bind(cat: CatResponse, position: Int) {
             label.text = "Cat $position"
-            image.load(cat.url) {
+            image.load(cat.imageUrl) {
                 crossfade(true)
                 placeholder(R.mipmap.ic_launcher)
                 transformations(CircleCropTransformation())
